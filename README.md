@@ -5,4 +5,4 @@ scan QR melalui photo ataupun upload image, dan nantinya dapat melihat history y
 # Nama Anggota
 Nurul Izzah (5322600015) | 
 Dzulkifli (5322600017) | 
-Annete Phoebe Jovanca Ompusunggu (532260028)
+Annete Phoebe Jovanca Ompusunggu (5322600028)
