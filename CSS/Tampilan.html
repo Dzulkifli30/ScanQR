@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,23 +10,30 @@
   <style>
     /* Custom CSS */
     .navbar-custom {
-      background-color: #000; /* Warna latar belakang navbar hitam */
-      height: 16.66%; /* 1/6 dari tampilan desktop */
+      background-color: #000;
+      /* Warna latar belakang navbar hitam */
+      height: 16.66%;
+      /* 1/6 dari tampilan desktop */
     }
 
     .navbar-custom .navbar-brand {
-      font-family: 'Inter', sans-serif; /* Menggunakan font Inter */
+      font-family: 'Inter', sans-serif;
+      /* Menggunakan font Inter */
     }
 
     /* Warna teks "Check" dan "dulu" */
     .navbar-custom .navbar-brand .check {
-      color: yellow; /* Warna putih untuk "Check" */
-      font-weight: 700; /* Ketebalan teks "Check" */
+      color: yellow;
+      /* Warna putih untuk "Check" */
+      font-weight: 700;
+      /* Ketebalan teks "Check" */
     }
 
     .navbar-custom .navbar-brand .dulu {
-      color: #fff; /* Warna putih untuk "dulu" */
-      font-weight: 1000; /* Ketebalan teks "dulu" */
+      color: #fff;
+      /* Warna putih untuk "dulu" */
+      font-weight: 1000;
+      /* Ketebalan teks "dulu" */
     }
 
     /* Pilihan Upload Image dan Scan QR Code */
@@ -38,7 +46,8 @@
       margin-top: 20px;
     }
 
-    .upload-text, .scan-code {
+    .upload-text,
+    .scan-code {
       color: yellow;
       font-family: 'Inter', sans-serif;
       font-weight: bold;
@@ -52,7 +61,8 @@
       top: 251px;
     }
 
-    .upload-box, .scan-box {
+    .upload-box,
+    .scan-box {
       width: 180px;
       height: 60px;
       border-radius: 16px;
@@ -64,6 +74,7 @@
       font-weight: bold;
       background-color: black;
       position: absolute;
+      cursor: pointer;
     }
 
     .upload-box {
@@ -81,48 +92,83 @@
       left: 520px;
       top: 257px;
     }
+
+    /* Input file dan layar kamera */
+    #fileInput,
+    #cameraScreen {
+      display: none;
+    }
   </style>
   <title>Navbar Custom</title>
 </head>
+
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
-  <a class="navbar-brand" href="#"><span class="check">Check</span><span class="dulu">dulu.</span></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">About</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Services</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Contact</a>
-      </li>
-    </ul>
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+    <a class="navbar-brand" href="#"><span class="check">Check</span><span class="dulu">dulu.</span></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+    </div>
+  </nav>
+  <div class="">
+    <!-- Pilihan Upload Image dan Scan QR Code -->
+    <button class="upload-box" onclick="showScanner()">Scan QR Code</button>
+    <button class="scan-box" onclick="showFileInput()">Upload Image</button>
   </div>
-</nav>
+  
+  <!-- Tulisan "Upload Image" dan "Scan QR Code" -->
+  <div class="upload-text" id="uploadText"></div>
+  <div class="scan-code" id="scanCode"></div>
 
-<!-- Pilihan Upload Image dan Scan QR Code -->
-<div class="upload-box" id="uploadBox">Upload Image</div>
-<div class="scan-box" id="scanBox">Scan QR Code</div>
+  <!-- Input file dan layar kamera -->
+  <input type="file" id="fileInput">
+  <video id="preview" autoplay></video>
 
-<!-- Tulisan "Upload Image" dan "Scan QR Code" -->
-<div class="upload-text" id="uploadText"></div>
-<div class="scan-code" id="scanCode"></div>
+  <!-- jQuery and Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 
-<!-- jQuery and Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const preview = document.getElementById('preview');
+    function showFileInput() {
+
+      fileInput.style.display = 'block';
+      preview.style.display = 'none';
+    }
+
+    function showScanner() {
+      fileInput.style.display = 'none';
+      preview.style.display = 'block';
+
+      const scanner = new Instascan.Scanner({ video: preview });
+
+      // Callback yang dipanggil ketika QR code terdeteksi
+      scanner.addListener('scan', function (content) {
+        alert('QR Code terdeteksi! Isi: ' + content);
+        // Lakukan sesuatu dengan nilai QR code yang terdeteksi
+      });
+
+      // Dapatkan kamera dan mulai pemindaian
+      Instascan.Camera.getCameras().then(function (cameras) {
+        if (cameras.length > 0) {
+          scanner.start(cameras[0]); // Gunakan kamera pertama yang ditemukan
+        } else {
+          console.error('Tidak ada kamera yang ditemukan.');
+          showFileInput(); // Tampilkan input file jika tidak ada kamera yang ditemukan
+        }
+      }).catch(function (e) {
+        console.error(e);
+        showFileInput(); // Tampilkan input file jika terjadi kesalahan
+      });
+    }
+  </script>
 
 </body>
+
 </html>
-
-
