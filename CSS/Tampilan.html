@@ -61,6 +61,26 @@
       top: 251px;
     }
 
+    .link-box {
+        width: 180px;
+        height: 60px;
+        border-radius: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: yellow;
+        font-family: 'Inter', sans-serif;
+        font-weight: bold;
+        background-color: black;
+        position: absolute;
+        right: 400px;
+        top: 135px;
+    }
+    .link-text {
+        font-size: 20pt;
+    }
+
+
     .upload-box,
     .scan-box {
       width: 180px;
@@ -92,7 +112,7 @@
       left: 520px;
       top: 257px;
     }
-
+  
     /* Input file dan layar kamera */
     #fileInput,
     #cameraScreen {
@@ -118,10 +138,16 @@
     <button class="upload-box" onclick="showScanner()">Scan QR Code</button>
     <button class="scan-box" onclick="showFileInput()">Upload Image</button>
   </div>
+
+  <!-- Box Link di Sebelah Kanan -->
+  <div class="link-box">
+      <span class="link-text">Link</span>
+  </div>
   
   <!-- Tulisan "Upload Image" dan "Scan QR Code" -->
   <div class="upload-text" id="uploadText"></div>
   <div class="scan-code" id="scanCode"></div>
+  <div class="link-text" id="linkText"></div>
 
   <!-- Input file dan layar kamera -->
   <input type="file" id="fileInput">
