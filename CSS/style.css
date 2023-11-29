@@ -1,0 +1,15 @@
+.check, .dulu {
+    display: inline; /* Menjadikan elemen inline */
+    font-size: 100pt; /* Ukuran font 100pt */
+    font-family: 'Inter', sans-serif; /* Menggunakan font "Inter" */
+    font-weight: bold; /* Membuat teks menjadi tebal */
+    background-color: black;
+}
+
+.check {
+        color: yellow;
+    }
+
+.dulu {
+        color: white;
+}
