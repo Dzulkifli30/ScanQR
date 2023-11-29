@@ -25,31 +25,43 @@
             color: white;
         }
 
-        .upload-text {
+        .upload-text, .scan-code{
             position: absolute;
+            color: yellow;
+            font-family: "Inter", sans-serif;
+            font-weight: bold;
+            background-color: black;
+        }
+
+        .upload-text { 
             left: 455px;
             top: 251px;
             color: yellow;
             font-size: 32pt;
-            font-family: 'Inter', sans-serif;
-            font-weight: bold;
-            background-color: black;
         } 
+
         .scan-code {
-            position: absolute;
             left: 790px;
             top: 257px;
             color: yellow;
             font-size: 24pt;
-            font-family: 'Inter', sans-serif;
-            font-weight: bold;
-            background-color: black;
         }
+
     </style>
 </head>
 <body>
     <p><span class="check">Check</span><span class="dulu">Dulu.</span></p>
-    <div class="upload-text">Upload Image</div>
-    <div class="scan-code">Scan QR Code</div>
+    <div id="UploadText" class="upload-text">Upload Image</div>
+    <div id="scanCode" class="scan-code">Scan QR Code</div>
+
+    <script>
+        var isUpload = true;
+        if(isUpload){
+            document.getElementById('UploadText').style.fontWeight='bold';
+        } else{
+            document.getElementById('scanCode').style.fontWeight='bold';
+        }
+    </script>
+
 </body>
 </html>
