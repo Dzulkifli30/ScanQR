@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Scanner and Image Uploader</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #fileInput, #preview {
+            display: none;
+            margin: 20px 0;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>QR Code Scanner and Image Uploader</h1>
+    <button onclick="showScanner()">Scan QR Code</button>
+    <button onclick="showFileInput()">Upload Image</button>
+    <input type="file" accept="image/*" id="fileInput" />
+
+
+    <video id="preview"></video>
+
+
+    <!-- Include Instascan library -->
+    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+
+    <script>
+        // Fungsi untuk menampilkan input file dan menyembunyikan video preview
+        function showFileInput() {
+            const fileInput = document.getElementById('fileInput');
+            const preview = document.getElementById('preview');
+
+            fileInput.style.display = 'block';
+            preview.style.display = 'none';
+        }
+
+        // Fungsi untuk menampilkan video preview dan menyembunyikan input file
+        function showScanner() {
+            const fileInput = document.getElementById('fileInput');
+            const preview = document.getElementById('preview');
+
+            fileInput.style.display = 'none';
+            preview.style.display = 'block';
+
+            // Inisialisasi scanner
+            const scanner = new Instascan.Scanner({ video: preview });
+
+            // Callback yang dipanggil ketika QR code terdeteksi
+            scanner.addListener('scan', function (content) {
+                alert('QR Code terdeteksi! Isi: ' + content);
+                // Lakukan sesuatu dengan nilai QR code yang terdeteksi
+            });
+
+            // Dapatkan kamera dan mulai pemindaian
+            Instascan.Camera.getCameras().then(function (cameras) {
+                if (cameras.length > 0) {
+                    scanner.start(cameras[0]); // Gunakan kamera pertama yang ditemukan
+                } else {
+                    console.error('Tidak ada kamera yang ditemukan.');
+                    showFileInput(); // Tampilkan input file jika tidak ada kamera yang ditemukan
+                }
+            }).catch(function (e) {
+                console.error(e);
+                showFileInput(); // Tampilkan input file jika terjadi kesalahan
+            });
+        }
+    </script>
+</body>
+</html>
