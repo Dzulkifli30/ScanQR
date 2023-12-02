@@ -1,9 +1,31 @@
+<?php
+    $folderPath = 'uploads'; // Ganti dengan path folder Anda
+
+    // Membaca daftar file dalam folder
+    $files = scandir($folderPath);
+    
+    // Menghapus setiap file
+    foreach ($files as $file) {
+        // Hindari menghapus "." dan ".."
+        if ($file !== "." && $file !== "..") {
+            $filePath = $folderPath . '/' . $file;
+    
+            // Hapus file
+            if (is_file($filePath)) {
+                unlink($filePath);
+                // echo 'File ' . $file . ' berhasil dihapus.<br>';
+            }
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkdulu - ScanQR online website</title>
+    <title>Checkdulu - online free ScanQR website</title>
     <!-- Menggunakan font Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -24,7 +46,8 @@
 
         .navbar-custom {
             background-color: #000;
-            height: 10.50%; /* 1/6 dari tampilan desktop */
+            height: 10.50%;
+            /* 1/6 dari tampilan desktop */
             width: 100%;
             position: fixed;
             top: 0;
@@ -52,7 +75,8 @@
             align-items: center;
             /* background-color: black; */
             padding: 0px;
-            margin-top: 100px; /* Margin tambahan untuk konten di bawah navbar */
+            margin-top: 100px;
+            /* Margin tambahan untuk konten di bawah navbar */
         }
 
         .upload-text,
@@ -132,7 +156,8 @@
             width: 100%;
             font-size: 2em;
         }
-        .icon{
+
+        .icon {
             font-size: 2em;
         }
 
@@ -143,7 +168,8 @@
             width: calc(2/3 * 100vw);
             height: calc(3/5 * 100vh);
             border-radius: 30px;
-            border: 10px dashed black; /* Border lebih tebal dan garis putus-putus */
+            border: 10px dashed black;
+            /* Border lebih tebal dan garis putus-putus */
         }
 
         #preview {
@@ -152,11 +178,29 @@
             width: calc(2/3 * 100vw);
             height: calc(3/5 * 100vh);
             border-radius: 30px;
-            border: 10px dashed black; /* Border lebih tebal dan garis putus-putus */
+            border: 10px dashed black;
+            /* Border lebih tebal dan garis putus-putus */
+        }
+        #konversiBtn {
+            display: none;
+            /* Sembunyikan tombol konversi secara default */
+            background-color: #D0B770;
+            /* Warna latar belakang */
+            color: #ffffff;
+            /* Warna teks */
+            padding: 10px 20px;
+            /* Padding tombol */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.5em;
+            margin-top: 10px;
+            /* Margin atas agar berjarak dari input */
         }
     </style>
     <title>Navbar Custom</title>
 </head>
+
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
@@ -175,13 +219,17 @@
     </div>
 
     <!-- Input file dan layar kamera -->
-    <label class="column btn input-content"  id="fileInput">
-        <input  type="file" style="display: none;" onchange="updateFileName(this)">
-        <span class="file-name">
-            <i class="fa-solid fa-cloud-arrow-up icon"></i>
-            <p>Input file Here</p>
-        </span>
-    </label>
+    <form action="hasil_uploads.php" method="post" enctype="multipart/form-data">
+        <label class="column btn input-content" id="fileInput">
+            <input type="file" name="qrFile" style="display: none;" onchange="updateFileName(this)">
+            <span class="file-name">
+                <i class="fa-solid fa-cloud-arrow-up icon"></i>
+                <p>Input file Here</p>
+            </span>
+        </label>
+        <button type="submit" id="konversiBtn">Konversi</button>
+    </form>
+
     <!-- <input type="file" id="fileInput"> -->
     <video id="preview" autoplay></video>
 
@@ -195,6 +243,17 @@
     <script>
         const fileInput = document.getElementById('fileInput');
         const preview = document.getElementById('preview');
+
+        function updateFileName(input) {
+            var fileName = input.files[0].name;
+            var fileDisplay = input.parentElement.querySelector('.file-name');
+            var konversiBtn = document.getElementById('konversiBtn');
+
+            fileDisplay.textContent = fileName;
+
+            // Tampilkan tombol konversi jika file sudah diinput
+            konversiBtn.style.display = 'block';
+        }
 
         function showFileInput() {
             fileInput.style.display = 'block';
@@ -226,4 +285,5 @@
         }
     </script>
 </body>
+
 </html>
