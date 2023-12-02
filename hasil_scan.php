@@ -167,7 +167,16 @@
 
     <label class="column input-content">
         <span class="file-name">
-            <p>Berikut hasil scan kode QR yang didapatkan</p>
+            <?php
+        // Mendapatkan nilai dari parameter content
+        $content = $_GET['content'] ?? '';
+
+        if (!empty($content)) {
+            echo '<p>' . htmlspecialchars($content) . '</p>';
+        } else {
+            echo '<p>Tidak ada hasil scan QR Code.</p>';
+        }
+        ?>
         </span>
     </label>
 
