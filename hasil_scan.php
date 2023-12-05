@@ -25,7 +25,8 @@
 
         .navbar-custom {
             background-color: #000;
-            height: 10.50%; /* 1/6 dari tampilan desktop */
+            height: 10.50%;
+            /* 1/6 dari tampilan desktop */
             width: 100%;
             position: fixed;
             top: 0;
@@ -53,7 +54,8 @@
             align-items: center;
             /* background-color: black; */
             padding: 0px;
-            margin-top: 100px; /* Margin tambahan untuk konten di bawah navbar */
+            margin-top: 0px;
+            /* Margin tambahan untuk konten di bawah navbar */
         }
 
         .upload-text,
@@ -118,23 +120,66 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            white-space: nowrap;
+            white-space: pre-line;
             overflow: hidden;
             text-overflow: ellipsis;
             text-align: center;
             width: 100%;
             font-size: 1em;
+            font-weight: bold;
         }
-        .icon{
+
+        .icon {
             font-size: 2em;
         }
-        .input-content{
+
+        .input-content {
             margin: 20px 0;
             width: calc(2/3 * 100vw);
-            height: calc(3/5 * 100vh);
+            max-height: calc(3/5 * 100vh);
+            /* Set maximum height */
             border-radius: 30px;
             border: 10px dashed black;
+            overflow-y: auto;
+            /* Enable vertical scrolling for overflow content */
+            padding: 20px;
+            /* Add padding for better aesthetics */
         }
+
+        .link-text {
+            padding-left: calc(1/20 * 100vw);
+            padding-right: calc(1/20 * 100vw);
+
+        }
+
+        .copy-button {
+            background-color: yellow;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 0px;
+            font-weight: bold;
+            /* Adjust as needed */
+        }
+
+        .copy-button:hover {
+            background-color: #ffd700;
+            /* Darker yellow on hover */
+        }
+
+        .back-to-home {
+        color: #333; /* Dark text color */
+        text-decoration: underline;
+        margin-top: 10px; /* Adjust as needed */
+        cursor: pointer;
+    }
+
+    .back-to-home:hover {
+        color: #000; /* Darker text color on hover */
+    }
 
         /* Input file dan layar kamera */
 
@@ -144,9 +189,9 @@
             width: calc(2/3 * 100vw);
             height: calc(3/5 * 100vh);
             border-radius: 30px;
-            border: 10px dashed black; /* Border lebih tebal dan garis putus-putus */
+            border: 10px dashed black;
+            /* Border lebih tebal dan garis putus-putus */
         }
-
     </style>
 </head>
 
@@ -154,10 +199,6 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
         <a class="navbar-brand" href="index.php"><span class="check">Check</span><span class="dulu">dulu.</span></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav"></div>
     </nav>
 
     <div class="upload-scan-bar">
@@ -166,19 +207,24 @@
     </div>
 
     <label class="column input-content">
-        <span class="file-name">
+        <span id="resultText" class="file-name">
             <?php
-        // Mendapatkan nilai dari parameter content
-        $content = $_GET['content'] ?? '';
+            // Mendapatkan nilai dari parameter content
+            $content = $_GET['content'] ?? '';
 
-        if (!empty($content)) {
-            echo '<p>' . htmlspecialchars($content) . '</p>';
-        } else {
-            echo '<p>Tidak ada hasil scan QR Code.</p>';
-        }
-        ?>
+            if (!empty($content)) {
+                echo '<p>' . htmlspecialchars($content) . '</p>';
+            } else {
+                echo '<p>Tidak ada hasil scan QR Code.</p>';
+            }
+            ?>
         </span>
     </label>
+
+    <button class="copy-button">Copy Text <i class="fa-solid fa-copy"></i></button>
+    <a class="back-to-home" href="index.php">Kembali ke halaman awal</a>
+
+
 
 </body>
 
