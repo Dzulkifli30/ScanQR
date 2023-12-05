@@ -207,15 +207,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         .back-to-home {
-        color: #333; /* Dark text color */
-        text-decoration: underline;
-        margin-top: 10px; /* Adjust as needed */
-        cursor: pointer;
-    }
+            color: #333;
+            /* Dark text color */
+            text-decoration: underline;
+            margin-top: 10px;
+            /* Adjust as needed */
+            cursor: pointer;
+        }
 
-    .back-to-home:hover {
-        color: #000; /* Darker text color on hover */
-    }
+        .back-to-home:hover {
+            color: #000;
+            /* Darker text color on hover */
+        }
 
         /* Input file dan layar kamera */
 
@@ -227,6 +230,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border-radius: 30px;
             border: 10px dashed black;
             /* Border lebih tebal dan garis putus-putus */
+        }
+
+        .absolute-alert {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
         }
     </style>
 </head>
@@ -245,7 +255,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <label class="column input-content">
         <span id="resultText" class="file-name">
             <?php
-            echo '<p>' . $result . '</p>';
+            echo '<p class="link-text" id="qrcodeText">' . $result . '</p>';
             ?>
         </span>
     </label>
@@ -253,7 +263,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <button class="copy-button">Copy Text <i class="fa-solid fa-copy"></i></button>
     <a class="back-to-home" href="index.php">Kembali ke halaman awal</a>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    <script>
+        function copyText() {
+            var textToCopy = document.getElementById('qrcodeText').innerText;
+
+            var tempInput = document.createElement('textarea');
+            tempInput.value = textToCopy;
+            document.body.appendChild(tempInput);
+
+            tempInput.select();
+            tempInput.setSelectionRange(0, 99999);
+
+            document.execCommand('copy');
+
+            document.body.removeChild(tempInput);
+
+            // Show Bootstrap alert after successful copy
+            showAlert();
+        }
+
+        function showAlert() {
+            // Create Bootstrap alert
+            var alertDiv = document.createElement('div');
+            alertDiv.className = 'alert alert-success alert-dismissible fade show absolute-alert';
+            alertDiv.role = 'alert';
+            alertDiv.innerHTML = '<strong>Berhasil!</strong> Teks berhasil disalin.';
+
+            // Create close button
+            var closeButton = document.createElement('button');
+            closeButton.type = 'button';
+            closeButton.className = 'close';
+            closeButton.setAttribute('data-dismiss', 'alert');
+            closeButton.innerHTML = '<span aria-hidden="true">&times;</span>';
+
+            // Append close button to alert
+            alertDiv.appendChild(closeButton);
+
+            // Append alert to the document body
+            document.body.appendChild(alertDiv);
+        }
+    </script>
 
 </body>
 
