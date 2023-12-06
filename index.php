@@ -182,21 +182,32 @@
             /* Border lebih tebal dan garis putus-putus */
         }
         #konversiBtn {
-            display: none;
-            /* Sembunyikan tombol konversi secara default */
-            background-color: #D0B770;
-            /* Warna latar belakang */
-            color: #ffffff;
-            /* Warna teks */
-            padding: 10px 20px;
-            /* Padding tombol */
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1.5em;
-            margin-top: 10px;
-            /* Margin atas agar berjarak dari input */
+    display: none;
+    background-color: yellow;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.5em;
+    margin-top: 10px;
+    /* Perubahan untuk mengatur tombol ke tengah */
+    margin: 0 auto;
+}
+    /* perubahan ketika tombol di arahkan */
+  #konversiBtn:hover {
+            background-color: #ffd700;
+            /* Darker yellow on hover */
         }
+
+/* Tambahan untuk membuat tombol berada di tengah secara vertikal */
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+}
     </style>
     <title>Navbar Custom</title>
 </head>
