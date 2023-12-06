@@ -260,7 +260,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </span>
     </label>
 
-    <button class="copy-button">Copy Text <i class="fa-solid fa-copy"></i></button>
+    <button class="copy-button" onclick="copyText()">Copy Text <i class="fa-solid fa-copy"></i></button>
     <a class="back-to-home" href="index.php">Kembali ke halaman awal</a>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
